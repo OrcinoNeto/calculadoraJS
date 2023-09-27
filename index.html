@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Calculadora</title>
+    <style>
+      *{
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-color: rgb(48, 42, 42);
+        font-family: 'Roboto', sans-serif;
+      }
+      input[type="text"] {
+        width: 90%;
+        border: none;
+        font-size: 30px;
+        text-align: end;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      .cont {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .calculadora {
+        width: 330px;
+        height: 500px;
+        text-align: center;
+        background-color: rgb(95, 172, 146);
+        padding: 15px;
+        border-radius: 5px;
+      }
+      button {
+        cursor: pointer;
+        font-size: 15px;
+        padding: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: none;
+        transition: transform 0.2s;
+      }
+      button:hover {
+        background-color: rgb(188, 252, 216);
+      }
+      button:active {
+        transform: translateX(5px);
+      }
+      h1{
+        margin: 20px;
+        color: aliceblue;
+        font-weight: bold;
+      }
+      #display{
+        background-color: rgb(48, 42, 42);
+        color: rgb(70, 167, 91);
+        opacity: 0.8;
+      }
+      p{
+        color: aliceblue;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cont">
+      <div class="calculadora">
+        <h1>Calculadora</h1>
+        <input type="text" id="display" readonly />        
+        <div>
+          <button onclick="display('7')">7</button>
+          <button onclick="display('8')">8</button>
+          <button onclick="display('9')">9</button>
+          <button onclick="display('+')">+</button>         
+          <button onclick="display('4')">4</button>
+          <button onclick="display('5')">5</button>
+          <button onclick="display('6')">6</button>
+          <button onclick="display('-')">-</button>         
+          <button onclick="display('1')">1</button>
+          <button onclick="display('2')">2</button>
+          <button onclick="display('3')">3</button>
+          <button onclick="display('*')">*</button>          
+          <button onclick="limparDisplay()">C</button>
+          <button onclick="display('0')">0</button>
+          <button onclick="calcularResutado()">=</button>
+          <button onclick="display('/')">/</button>
+        </div>
+        
+      </div>
+      <p>&copy Desenvolvido por Orcino Neto</p>
+    </div>
+    <script>
+      let displayValue = "";
+
+      function display(value) {
+        const ultimoCharacter = displayValue.charAt(displayValue.length - 1);
+        if (isOperator(ultimoCharacter) && isOperator(value)) {
+          displayValue = displayValue.slice(0, displayValue.length - 1) + value;
+        } else {
+          displayValue += value;
+        }
+
+        document.getElementById("display").value = displayValue;
+      }
+
+      function limparDisplay() {
+        displayValue = "";
+        document.getElementById("display").value = "";
+      }
+
+      function calcularResutado() {
+        try {
+          const result = eval(displayValue);
+          document.getElementById("display").value = result;
+          displayValue = result.toString();
+        } catch (error) {
+          document.getElementById("display").value = "Erro";
+        }
+      }
+
+      function isOperator(value) {
+        return ["+", "-", "*", "/"].includes(value);
+      }
+    </script>
+  </body>
+</html>
